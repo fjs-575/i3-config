@@ -1,0 +1,68 @@
+## Conky configuration file
+# Output is printed to the console -> i3bar
+
+# No output to X <yes/no>
+out_to_x no
+
+# Create own window to draw <yes/no>
+own_window no
+
+# Print everything to console <yes/no>
+out_to_console yes
+
+# Use double buffering (reduce flicker, not needed for console output)
+double_buffer no
+
+# Fork conky to the background
+background no
+
+# Update interval in seconds
+update_interval 1
+
+# This is the number of times Conky will update before quitting
+# Set to zero to run forever
+total_run_times 0
+
+# Shortens units to a single letter (kiB->k, GiB->G, etc.).
+short_units yes
+
+# Set output to uppercase <yes/no>
+uppercase no
+
+# Add spaces to keep thing moving about? This only affects certain objects
+# <left/right/none>
+use_spacer left
+
+# How strict should if_up be when testing an interface for being up?
+# The value us one of up, link or address, to check for the interface
+# being solely up, being up and having link or being up, link and an address
+if_up_strictness address
+
+# Number of cpu samples to average
+cpu_avg_samples 2
+
+TEXT
+# JSON for i3bar
+  [
+  # Global CPU status
+  { "full_text": "${cpu cpu0}% ", "color" : "\#8A8A8A" },
+  { "full_text": "${cpu cpu1}% ${cpu cpu2}% ${cpu cpu3}% ${cpu cpu4}% ", "color" : "\#8A8A8A" },
+  # Global pc info
+  { "full_text": "$uptime_short ", "color" : "\#8A8A8A" },
+  { "full_text": "$loadavg ", "color" : "\#8A8A8A" },
+  # Memory used
+  { "full_text": "$mem ", "color" : "\#8A8A8A" },
+  # Free space in home directory
+  { "full_text": "H:${fs_free /home/fjs} ", "color" : "\#8A8A8A" },
+  { "full_text": "D:${fs_free /home/fjs/data} ", "color" : "\#8A8A8A" },
+  # Eth0 status (ip-address)
+  ${if_up eno1} { "full_text": "E:${addr eno1} ${downspeed eno1} ${upspeed eno1} ", "color" : "\#8A8A8" }, ${endif}
+  # Wlan status (ip-address, essid and signal strenght
+  ${if_up wlp2s0} { "full_text": "W:${addr wlp2s0} [${wireless_essid wlp2s0}]${wireless_link_qual_perc wlp2s0}% ${downspeed wlp2s0} ${upspeed wlp2s0} ", "color" : "\#938B0F" }, ${endif}
+  # Tun0 status (ip-address)
+  ${if_up tun0} { "full_text": "VPN:${addr tun0} ${downspeed tun0} ${upspeed tun0}", "color" : "\#09C655" },
+  ${else} {"full_text": "VPN DOWN ", "color" : "\#FF2C53" }, ${endif}
+  # Time and date
+  { "full_text": "${time w%V %Y-%m-%d %A %H:%M}", "color" : "\#8A8A8A" },
+  # Battery status
+  { "full_text": "${battery_short BAT0} ${battery_time BAT0} ", "color" : "\#BFBFBF" }],

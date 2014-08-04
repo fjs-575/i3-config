@@ -1,0 +1,74 @@
+## Conky configuration file
+# Output is printed to the console -> i3bar
+
+# No output to X <yes/no>
+out_to_x no
+
+# Create own window to draw <yes/no>
+own_window no
+
+# Print everything to console <yes/no>
+out_to_console yes
+
+# Use double buffering (reduce flicker, not needed for console output)
+double_buffer no
+
+# Fork conky to the background
+background no
+
+# Update interval in seconds
+update_interval 15
+
+# This is the number of times Conky will update before quitting
+# Set to zero to run forever
+total_run_times 0
+
+# Shortens units to a single letter (->k, GiB->G, etc.).
+short_units yes
+
+# Set output to uppercase <yes/no>
+uppercase no
+
+# Add spaces to keep thing moving about? This only affects certain objects
+# <left/right/none>
+use_spacer right
+
+# How strict should if_up be when testing an interface for being up?
+# The value us one of up, link or address, to check for the interface
+# being solely up, being up and having link or being up, link and an address
+if_up_strictness address
+
+# Number of cpu samples to average
+cpu_avg_samples 2
+
+# Disabled items are temporary placed here
+#{"full_text":"E:","color":"\#eb578e"},\
+#${if_up eno1}{"full_text":"${addr eno1}","color":"\#CCCCCC"}${else}{"full_text":"--","color":"\#1ECAE2"}${endif},\
+#{"full_text":"MPD:","color":"\#eb578e"},\
+#${if_mpd_playing}{"full_text":"${mpd_smart} ${mpd_elapsed}/${mpd_length}","color":"\#CCCCCC"}${else}{"full_text":"--","color":"\#1ECAE2"}${endif},\
+#{"full_text":"UPTIME:","color":"\#eb578e"},\
+#{"full_text":"$uptime_short","color":"\#CCCCCC"},\
+#{"full_text":"CPU:","color":"\#eb578e"},\
+#{"full_text":"${cpu cpu0}%","color":"\#CCCCCC"},\
+#{"full_text":"$loadavg","color" : "\#CCCCCC" },\
+#{"full_text":"MEM:","color" : "\#eb578e" },\
+#{"full_text":"$mem ","color" : "\#CCCCCC" },\
+#{"full_text":"HOME:","color" : "\#eb578e" },\
+#{"full_text":"${fs_free /home/fjs}","color" : "\#CCCCCC" },\
+#{"full_text":"DATA:","color" : "\#eb578e" },\
+#{"full_text":"${fs_free /home/fjs/data}","color" : "\#CCCCCC" },\
+#{"full_text":"${time w%V %Y-%m-%d %A %H:%M:%S}","color" : "\#1ECAE2" }\
+
+TEXT
+# JSON for i3bar
+[\
+{"full_text":"| VPN:","color":"\#eb578e"},\
+${if_up tun0}{"full_text":"${addr tun0}","color":"\#CCCCCC"}${else}{"full_text":"NOT CONNECTED","color":"\#1ECAE2"}${endif},\
+{ "full_text" : "| W:","color" : "\#eb578e" },\
+${if_up wlp2s0}{"full_text":"${addr wlp2s0}[${wireless_essid wlp2s0}]${wireless_link_qual_perc wlp2s0}%","color":"\#CCCCCC"}${else}{"full_text":"NOT CONNECTED","color":"\#1ECAE2"}${endif},\
+{"full_text":"| BAT:","color" : "\#eb578e" },\
+{"full_text":"${battery_short BAT0} ${battery_time BAT0}","color" : "\#CCCCCC" },\
+{"full_text":"| ","color" : "\#eb578e" },\
+{"full_text":"${time w%V %Y-%m-%d %A %H:%M}","color" : "\#CCCCCC" },\
+{"full_text":"| ","color" : "\#eb578e" }\
+],

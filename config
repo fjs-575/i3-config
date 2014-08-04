@@ -1,0 +1,253 @@
+## i3 config file (v4)
+##
+## Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+## set modifier key to win-key
+set $mod Mod4
+
+## set font for window titles.
+font pango:Liberation Mono 10
+
+## Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+## start a terminal
+bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec xfce4-terminal
+
+## kill focused window
+bindsym $mod+Shift+q kill
+
+## start dmenu (a program launcher)
+#bindsym $mod+m exec synapse
+bindsym $mod+m exec dmenu_run -p "Yes master?" -fn -misc-fixed-*-*-*-*-13-120-*-*-*-*-*-*  -i -nf '#6699FF' -sb '#006699' -nb 'black' -l 15
+#bindsym $mod+m exec i3-dmenu-desktop -dmenu='dmenu -i -p "Yes master?" -fn -misc-fixed-*-*-*-*-13-120-*-*-*-*-*-*  -i -nf 'green' -sb 'dark green' -nb 'black' -l 20'
+
+## change focus like in VIM
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+## change focus with cursor keys
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+## move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+## move focused window with cursor keys
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+## split in horizontal orientation
+bindsym $mod+Shift+v split h
+## split in vertical orientation
+bindsym $mod+v split v
+
+## enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+## change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+## toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+## change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+## size of floating windows. value = is size in pixels. -1 = unconstrained
+floating_minimum_size 75 x 50
+floating_maximum_size 1888 x 1062
+
+## focus the parent container
+bindsym $mod+a focus parent
+## focus the child container
+bindsym $mod+z focus child
+
+## switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+## move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+## move focused container to next/previous workspace and focus to that workspace
+bindsym $mod+Control+1 move container to workspace 1; workspace 1
+bindsym $mod+Control+2 move container to workspace 2; workspace 2
+bindsym $mod+Control+3 move container to workspace 3; workspace 3
+bindsym $mod+Control+4 move container to workspace 4; workspace 4
+bindsym $mod+Control+5 move container to workspace 5; workspace 5
+bindsym $mod+Control+6 move container to workspace 6; workspace 6
+bindsym $mod+Control+7 move container to workspace 7; workspace 7
+bindsym $mod+Control+8 move container to workspace 8; workspace 8
+bindsym $mod+Control+9 move container to workspace 9; workspace 9
+bindsym $mod+Control+0 move container to workspace 10; workspace 1
+
+## reload the configuration file
+bindsym $mod+Shift+c reload
+## restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+## exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec oblogout
+## Screen locking. always move to workspace 0
+bindsym $mod+Control+l exec i3-msg workspace 11 && i3lock -c 000000 -d
+
+## change the window border
+bindsym $mod+b border toggle
+
+## resize window (you can also use the mouse for that)
+mode "resize" {
+        ## These bindings trigger as soon as you enter the resize mode
+        bindsym h resize shrink width 10 px or 5 ppt
+        bindsym j resize grow height 10 px or 5 ppt
+        bindsym k resize shrink height 10 px or 5 ppt
+        bindsym l resize grow width 10 px or 5 ppt
+        bindsym Left resize shrink width 10 px or 5 ppt
+        bindsym Down resize grow height 10 px or 5 ppt
+        bindsym Up resize shrink height 10 px or 5 ppt
+        bindsym Right resize grow width 10 px or 5 ppt
+
+        ## back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+## Start i3bar to display a workspace bar
+bar {
+        ## The original 'tweaked' config
+        #status_command i3status --config ~/.i3/i3status.conf
+
+        ## The conky commandstatus
+        status_command ~/.i3/conk
+
+        position top
+        font pango:Liberation Mono 10
+        colors {
+                background #000000
+                statusline #ffffff
+                separator  #000000
+
+                #                  border  backgr. text:
+                focused_workspace  #4c7899 #285577 #ffffff
+                active_workspace   #333333 #5f676a #ffffff
+                inactive_workspace #333333 #222222 #888888
+                urgent_workspace   #2f343a #900000 #ffffff
+        }
+}
+## toggle the bar from docked to visible
+bindsym $mod+Shift+b bar mode toggle
+
+## Window colors
+# class                 border  backgr. text    indicator
+client.focused          #4c7899 #007184 #ffffff #00FFE0
+client.focused_inactive #333333 #5f676a #ffffff #484e50
+client.unfocused        #333333 #222222 #888888 #292d2e
+client.urgent           #2f343a #900000 #ffffff #900000
+## Background color for clients that don't cover the whole window area
+client.background       #0F0F0F
+
+## Windows have a default 2 pixel border instead of the normal window border with caption.
+#new_window pixel 2
+
+## Applications that need a floating window instead of tilling or a different window style
+## then the normal one use 'xprop' to get the classnames
+for_window [class="^Xfce4-notifyd$"] floating enable; border none; focus mode_toggle
+for_window [class="^Keepass$"] floating enable
+for_window [class="^Oblogout$"] floating enable; border none
+for_window [class="^Thunar$" title="(?)File Operation Progress"] floating enable
+for_window [class="^Galculator$"] floating enable; border none
+for_window [class="^Gmrun$"] floating enable; border none
+# for_wiMdow [window_role="pop-up"] floating enable
+
+## assign applications to specific workspaces
+## browsers are always set to workspace 2
+#assign [class="^Chromium$"] 2
+#assign [class="^Firefox$"] 2
+#assign [class="^Claws-mail$"] 8
+#assign [class="^Vlc$"] 9
+
+## disable the automatic focussing when moving the mousepointer
+focus_follows_mouse no
+
+## cycle through workspaces with mod and tab usefull when using right hand with mouse
+bindsym $mod+Tab workspace next
+bindsym $mod+Shift+Tab workspace prev
+workspace_auto_back_and_forth yes
+bindsym $mod+Mod1+Tab focus right
+bindsym $mod+Mod1+Shift+Tab focus left
+
+## scratchpad :)
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+## use extra keys on keyboard to control audio and screen brightness
+## NOTE TO SELF: use 'xev' command to discover multimedia keys and bind them to usefull commands
+bindsym XF86AudioRaiseVolume exec "amixer -c 0 sset Master '3%+'"
+bindsym XF86AudioLowerVolume exec "amixer -c 0 sset Master '2%-'"
+bindsym XF86AudioMute exec "amixer -c 0 sset Master toggle"
+bindsym XF86AudioNext exec "mpc next"
+bindsym XF86AudioPrev exec "mpc prev"
+bindsym XF86AudioPlay exec "mpc toggle"
+## bind prtscr to scrot and take screenshot
+bindsym Print exec scrot ~/screenshots/screenshot_%Y_%m_%d_%H_%M_%S.png
+
+## autostart and set some things to default
+##
+## start network applet
+exec --no-startup-id nm-applet
+## set backlight of the display to 10%
+exec --no-startup-id xbacklight -set 0
+## set volume to 20%
+exec --no-startup-id amixer -c 0 sset Master 20%
+## disable internal beeper
+exec --no-startup-id xset -b
+## start clipit clipboard manager
+exec --no-startup-id parcellite
+## disable the touchpad of the laptop
+#exec --no-startup-id xinput disable 13
+## disable laptop monitor if vga is connected
+exec --no-startup-id ~/bin/mon_switch
+## start keepassx for password management
+exec --no-startup-id keepassx
+## start glances for system info and place it to scratchpad
+exec --no-startup-id urxvt -title scratchpad -e glances
+for_window [class="URxvt" title="scratchpad"] move scratchpad
+## start urxvt on system start
+#exec --no-startup-id sleep 2 && urxvt
+## set wallpaper
+#exec --no-startup-id feh /home/fjs/Documents/wallpaper/wallpaper-2979955.png --bg-scale
+
+## use function keys for something useful
+bindsym $mod+F1 exec chromium
+bindsym $mod+F2 exec google-chrome-stable
+bindsym $mod+F3 exec firefox
+#bindsym $mod+F2 exec claws-mail
+#bindsym $mod+F3 exec hexchat
+#bindsym $mod+F4 exec --no-startup-id mpd && urxvt -e ncmpcpp
+#bindsym $mod+F5 exec vlc
